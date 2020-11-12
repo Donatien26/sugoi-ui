@@ -1,4 +1,3 @@
-import { isAdministrator, isReader, isWriter } from './../../utils/roles';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { getConfigFile } from '../../configuration/utils';
 
@@ -11,12 +10,6 @@ const initialConfigState = {
 		readerRegexName: '',
 	},
 	realms: [],
-};
-
-const initialRoleState = {
-	isAdmin: false,
-	isReader: false,
-	isWriter: false,
 };
 
 const AppReducer = (state = initialConfigState, action: any) => {
@@ -47,27 +40,6 @@ const AppReducer = (state = initialConfigState, action: any) => {
 			return state;
 	}
 };
-
-export function roleReducer(state = initialRoleState, action: any) {
-	if (action.type === 'appConfig/tokenChanged') {
-		return {
-			...state,
-			isAdmin: isAdministrator(
-				action.payload.config.adminName,
-				action.payload.token,
-			),
-			isReader: isReader(
-				action.payload.config.readerRegexName,
-				action.payload.token,
-			),
-			isWriter: isWriter(
-				action.payload.config.writerRegexName,
-				action.payload.token,
-			),
-		};
-	}
-	return state;
-}
 
 export const fetchConfig = createAsyncThunk(
 	'appConfig/fetchConfig',

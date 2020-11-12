@@ -7,7 +7,6 @@ import {
 	MuiThemeProvider,
 	Theme,
 } from '@material-ui/core/styles';
-import { useKeycloak } from '@react-keycloak/web';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from './../configuration/store-configuration';
@@ -18,6 +17,7 @@ import Root from './root';
 import ScrollTop from './scroll-top/scroll-top';
 import Sider from './sider';
 import BreadCrumbs from './breadcrumbs/breadcrumbs';
+import { useReactOidc } from '@axa-fr/react-oidc-context';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			flexGrow: 1,
 			padding: theme.spacing(3),
 		},
+
 		container: {
 			paddingTop: theme.spacing(4),
 			paddingBottom: theme.spacing(1),
@@ -47,9 +48,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const App = () => {
 	const classes = useStyles();
-	const {
-		keycloak: { authenticated },
-	} = useKeycloak();
+	const { oidcUser } = useReactOidc();
+
 	const appStore = useSelector((store: RootState) => store.app);
 	const [drawerOpen, setDrawerOpen] = useState(false);
 	const handleDrawerToggle = () => {
@@ -62,7 +62,7 @@ const App = () => {
 			<div className={classes.root}>
 				<CssBaseline />
 				<Header handleDrawerToggle={handleDrawerToggle} />
-				{authenticated ? (
+				{oidcUser ? (
 					<Sider
 						drawerOpen={drawerOpen}
 						handleDrawerToggle={handleDrawerToggle}

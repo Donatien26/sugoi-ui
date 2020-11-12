@@ -14,8 +14,3 @@ export const saveRealms = (realms: Realm[]) => ({
 	type: 'saveRealms',
 	payload: { realms },
 });
-
-export const tokenChanged = (text: any) => ({
-	type: 'appConfig/tokenChanged',
-	payload: text,
-});

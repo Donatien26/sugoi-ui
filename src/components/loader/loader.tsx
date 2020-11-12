@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) =>
 	}),
 );
 
-export const KeycloakLoader = () => {
+export const Loader = () => {
 	const classes = useStyles();
 
 	return (

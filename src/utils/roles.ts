@@ -1,37 +1,38 @@
 export const isReader = (
 	readerRegexName: string,
-	tokenParsed: Keycloak.KeycloakTokenParsed | undefined,
+	tokenParsed: any | undefined,
 ) => {
-	const regex = new RegExp(readerRegexName);
-	let t = tokenParsed?.realm_access?.roles.filter((role) =>
-		role.match(regex),
-	).length;
-	return t ? t > 0 : false;
+	// const regex = new RegExp(readerRegexName);
+	// let t = tokenParsed?.realm_access?.roles.filter((role) =>
+	// 	role.match(regex),
+	// ).length;
+	// return t ? t > 0 : false;
+	return true;
 };
 
 export const isAdministrator = (
 	adminName: string,
-	tokenParsed: Keycloak.KeycloakTokenParsed | undefined,
+	tokenParsed: any | undefined,
 ) => {
-	let t = tokenParsed?.realm_access?.roles.filter((role) =>
-		role.includes(adminName),
-	).length;
-	return t ? t > 0 : false;
+	// let t = tokenParsed?.realm_access?.roles.filter((role) =>
+	// 	role.includes(adminName),
+	// ).length;
+	// return t ? t > 0 : false;
+	return true;
 };
 
 export const isWriter = (
 	writerRegexName: string,
-	tokenParsed: Keycloak.KeycloakTokenParsed | undefined,
+	tokenParsed: any | undefined,
 ) => {
-	const regex = new RegExp(writerRegexName);
-	let t = tokenParsed?.realm_access?.roles.filter((role) =>
-		role.match(regex),
-	).length;
-	return t ? t > 0 : false;
+	// const regex = new RegExp(writerRegexName);
+	// let t = tokenParsed?.realm_access?.roles.filter((role) =>
+	// 	role.match(regex),
+	// ).length;
+	// return t ? t > 0 : false;
+	return true;
 };
 
-export const getRoles = (
-	tokenParsed: Keycloak.KeycloakTokenParsed | undefined,
-) => {
+export const getRoles = (tokenParsed: any | undefined) => {
 	return null;
 };

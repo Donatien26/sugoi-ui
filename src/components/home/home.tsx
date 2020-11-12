@@ -6,20 +6,14 @@ import {
 	Grid,
 	Typography,
 } from '@material-ui/core';
-import { useKeycloak } from '@react-keycloak/web';
 import React from 'react';
 import Title from '../commons/title/title';
 import MainFeaturedPost from './landingpage/landingpage';
+import { useReactOidc } from '@axa-fr/react-oidc-context';
 
 const Home = () => {
-	const {
-		keycloak: { tokenParsed, authenticated },
-	} = useKeycloak();
-	let roles = tokenParsed?.realm_access?.roles.filter(
-		(role) =>
-			role.includes('_Ouganext') ||
-			role.includes('Administrateurs_Ouganext'),
-	);
+	const { oidcUser } = useReactOidc();
+	let roles = oidcUser?.profile.roles;
 	return (
 		<>
 			<Title
@@ -34,7 +28,7 @@ const Home = () => {
 				justify="center"
 				spacing={5}
 			>
-				{authenticated ? (
+				{oidcUser ? (
 					<Grid item>
 						<Card>
 							<CardHeader title="Vos droits: " />
@@ -48,8 +42,8 @@ const Home = () => {
 									roles?.length > 0
 										? roles?.map(
 												(
-													role,
-													i,
+													role: string,
+													i: string,
 												) => (
 													<ul
 														key={

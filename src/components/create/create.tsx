@@ -2,11 +2,8 @@ import { Grid } from '@material-ui/core';
 import React from 'react';
 import D from './../../i18n';
 import Title from '../commons/title/title';
-interface Props {
-	type_Recherche: String;
-}
 
-const Create = (props: Props) => {
+const Create = () => {
 	return (
 		<>
 			<Title title={D.create_title} />
