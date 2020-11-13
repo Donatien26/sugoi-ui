@@ -4,7 +4,9 @@ import {
 	CardHeader,
 	Divider,
 	Grid,
-	Typography,
+	List,
+	ListItem,
+	ListItemText,
 } from '@material-ui/core';
 import React from 'react';
 import Title from '../commons/title/title';
@@ -34,31 +36,34 @@ const Home = () => {
 							<CardHeader title="Vos droits: " />
 							<Divider />
 							<CardContent>
-								<Typography
-									variant="body1"
-									component="p"
-								>
-									{roles &&
-									roles?.length > 0
-										? roles?.map(
-												(
-													role: string,
-													i: string,
-												) => (
-													<ul
+								<List>
+									{roles.map(
+										(role: string) => {
+											return (
+												<ListItem
+													key={
+														role
+													}
+												>
+													<ListItemText
 														key={
-															'role' +
-															i
+															role +
+															'text'
+														}
+														inset={
+															true
 														}
 													>
+														-
 														{
 															role
 														}
-													</ul>
-												),
-										  )
-										: "Vous n'avez aucun droits"}
-								</Typography>
+													</ListItemText>
+												</ListItem>
+											);
+										},
+									)}
+								</List>
 							</CardContent>
 						</Card>
 					</Grid>

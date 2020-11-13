@@ -18,12 +18,12 @@ import Autocomplete from '@material-ui/lab/Autocomplete/Autocomplete';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { getRealms } from '../../api/api';
-import D from '../../i18n';
-import { Realm } from '../../model/interface';
+import { getRealms } from '../../../api/api';
+import D from '../../../i18n';
+import { Realm } from '../../../model/interface';
 import { ThemeButton } from './theme-button';
-import { saveRealms } from './../../redux/actions/app';
-import { RootState } from '../../configuration/store-configuration';
+import { saveRealms } from '../../../redux/actions/app';
+import { RootState } from '../../../configuration/store-configuration';
 import { useReactOidc } from '@axa-fr/react-oidc-context';
 
 const SiderBody = () => {

@@ -3,7 +3,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import D from './../../i18n';
+import D from './../../../i18n';
 import { useReactOidc } from '@axa-fr/react-oidc-context';
 
 const useStyles = makeStyles((theme) => ({

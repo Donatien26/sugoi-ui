@@ -1,37 +1,38 @@
-import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
-import Home from './home/home';
-import Create from './create/create';
-import { Details } from './details/details';
-import Search from './search/search';
-import Settings from './settings/settings';
-import { withOidcSecure } from '@axa-fr/react-oidc-context';
+import {
+	AuthenticationProvider,
+	InMemoryWebStorage,
+	oidcLog,
+} from '@axa-fr/react-oidc-context';
+import React, { useEffect, useState } from 'react';
+import { getConfigFile } from '../configuration/utils';
+import App from './app';
+import { Loader } from './commons/loader/loader';
+import { UserManagerSettings } from 'oidc-client';
+
 const Root = () => {
-	return (
-		<Switch>
-			<Route
-				exact
-				path="/realm/:id/create"
-				component={withOidcSecure(Create)}
-			/>
-			<Route
-				exact
-				path="/detail/:id"
-				component={withOidcSecure(Details)}
-			/>
-			<Route
-				exact
-				path="/settings"
-				component={withOidcSecure(Settings)}
-			/>
-			<Route
-				exact
-				path="/realm/:realm"
-				component={withOidcSecure(Search)}
-			/>
-			<Route exact path="/" component={Home} />
-			<Redirect to="/" />
-		</Switch>
+	const [configuration, setConfiguration] = useState<
+		UserManagerSettings | undefined
+	>(undefined);
+	useEffect(() => {
+		getConfigFile().then((r) => setConfiguration(r.auth));
+	}, []);
+
+	return configuration === undefined ? (
+		<Loader />
+	) : (
+		<AuthenticationProvider
+			configuration={configuration}
+			loggerLevel={oidcLog.INFO}
+			isEnabled={true}
+			UserStore={InMemoryWebStorage}
+			// notAuthenticated={NotAuthorized}
+			// notAuthorized={NotAuthorized}
+			authenticating={Loader}
+			callbackComponentOverride={Loader}
+			sessionLostComponent={Loader}
+		>
+			<App />
+		</AuthenticationProvider>
 	);
 };
 

@@ -1,7 +1,7 @@
 import { AppBar, IconButton, Toolbar, Typography } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import React from 'react';
-import D from './../../i18n';
+import D from '../../../i18n';
 import LoginButton from './login-button';
 import MenuIcon from '@material-ui/icons/Menu';
 interface props {

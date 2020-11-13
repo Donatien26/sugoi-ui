@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import store from './configuration/store-configuration';
-import Index from './components/index';
+import Root from './components/root';
 import { BrowserRouter } from 'react-router-dom';
 import { SnackbarProvider } from 'notistack';
 import { fetchConfig } from './redux/reducers/app';
@@ -20,7 +20,7 @@ ReactDOM.render(
 				}}
 				hideIconVariant={false}
 			>
-				<Index />
+				<Root />
 			</SnackbarProvider>
 		</BrowserRouter>
 	</Provider>,

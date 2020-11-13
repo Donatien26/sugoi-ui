@@ -10,8 +10,8 @@ const clientConfig = (config: any) => {
 	};
 };
 
-const getClient = () =>
-	configWrapper((resp: any) => {
+const getClient = () => {
+	return configWrapper((resp: any) => {
 		const client = axios.create({
 			baseURL: resp.api,
 		});
@@ -32,5 +32,6 @@ const getClient = () =>
 		);
 		return client;
 	});
+};
 
 export default getClient;
