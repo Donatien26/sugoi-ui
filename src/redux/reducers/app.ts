@@ -1,6 +1,3 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import { getConfigFile } from '../../configuration/utils';
-
 const initialConfigState = {
 	theme: window.localStorage.getItem('darkMode') ? 'dark' : 'light',
 	config: {
@@ -40,12 +37,5 @@ const AppReducer = (state = initialConfigState, action: any) => {
 			return state;
 	}
 };
-
-export const fetchConfig = createAsyncThunk(
-	'appConfig/fetchConfig',
-	async () => {
-		return await getConfigFile();
-	},
-);
 
 export default AppReducer;

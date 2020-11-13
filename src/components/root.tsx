@@ -7,6 +7,8 @@ import React, { useEffect, useState } from 'react';
 import { getConfigFile } from '../configuration/utils';
 import App from './app';
 import { Loader } from './commons/loader/loader';
+import Callback from './commons/callback/callback';
+
 import { UserManagerSettings } from 'oidc-client';
 
 const Root = () => {
@@ -22,13 +24,13 @@ const Root = () => {
 	) : (
 		<AuthenticationProvider
 			configuration={configuration}
-			loggerLevel={oidcLog.INFO}
+			loggerLevel={oidcLog.DEBUG}
 			isEnabled={true}
 			UserStore={InMemoryWebStorage}
 			// notAuthenticated={NotAuthorized}
 			// notAuthorized={NotAuthorized}
 			authenticating={Loader}
-			callbackComponentOverride={Loader}
+			callbackComponentOverride={Callback}
 			sessionLostComponent={Loader}
 		>
 			<App />

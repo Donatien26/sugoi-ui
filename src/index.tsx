@@ -5,7 +5,7 @@ import store from './configuration/store-configuration';
 import Root from './components/root';
 import { BrowserRouter } from 'react-router-dom';
 import { SnackbarProvider } from 'notistack';
-import { fetchConfig } from './redux/reducers/app';
+import { fetchConfig } from './redux/actions/app';
 
 store.dispatch(fetchConfig());
 
