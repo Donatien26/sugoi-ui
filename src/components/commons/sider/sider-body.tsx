@@ -76,13 +76,17 @@ const SiderBody = () => {
 						) => {
 							if (newValue) {
 								setRealmSelected(newValue);
-								push('/realm/' + newValue.name);
+								push(
+									'/realm/' +
+										newValue.name +
+										'/search',
+								);
 							}
 						}}
 						renderInput={(params) => (
 							<TextField
 								{...params}
-								label="Realm"
+								label="Choose realm..."
 								variant="standard"
 							/>
 						)}
@@ -108,7 +112,11 @@ const SiderBody = () => {
 						key={D.sider_search}
 						disabled={realmSelected ? false : true}
 						onClick={() =>
-							push('/realm/' + realmSelected?.name)
+							push(
+								'/realm/' +
+									realmSelected?.name +
+									'/search',
+							)
 						}
 					>
 						<ListItemIcon>

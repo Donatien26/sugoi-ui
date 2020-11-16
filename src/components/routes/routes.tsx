@@ -12,12 +12,12 @@ const Routes = () => {
 		<Switch>
 			<Route
 				exact
-				path="/realm/:id/create"
+				path="/realm/:realmName/create"
 				component={withOidcSecure(Create)}
 			/>
 			<Route
 				exact
-				path="/detail/:id"
+				path="/realm/:realmName/detail/user/:id"
 				component={withOidcSecure(Details)}
 			/>
 			<Route
@@ -27,7 +27,7 @@ const Routes = () => {
 			/>
 			<Route
 				exact
-				path="/realm/:realm"
+				path="/realm/:realmName/search"
 				component={withOidcSecure(Search)}
 			/>
 			<Route exact path="/" component={Home} />

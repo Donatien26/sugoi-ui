@@ -10,3 +10,14 @@ export interface UserStorage {
 	userBranch: string;
 	organizationBranch: string;
 }
+
+export interface User {
+	lastName: string;
+	firstName: string;
+	mail: string;
+	username: string;
+}
+
+export interface Attributes {
+	description: string;
+}

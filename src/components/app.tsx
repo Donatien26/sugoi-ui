@@ -54,7 +54,6 @@ const App = () => {
 	const handleDrawerToggle = () => {
 		setDrawerOpen(!drawerOpen);
 	};
-
 	return (
 		<MuiThemeProvider
 			theme={appStore.theme === 'dark' ? DarkTheme : LightTheme}
