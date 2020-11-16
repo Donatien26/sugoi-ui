@@ -1,21 +1,12 @@
-import {
-	Card,
-	CardContent,
-	CardHeader,
-	Divider,
-	Grid,
-	List,
-	ListItem,
-	ListItemText,
-} from '@material-ui/core';
+import { useReactOidc } from '@axa-fr/react-oidc-context';
+import { Grid } from '@material-ui/core';
 import React from 'react';
 import Title from '../commons/title/title';
 import MainFeaturedPost from './landingpage/landingpage';
-import { useReactOidc } from '@axa-fr/react-oidc-context';
+import CardRights from './right-card';
 
 const Home = () => {
 	const { oidcUser } = useReactOidc();
-	let roles = oidcUser?.profile.roles;
 	return (
 		<>
 			<Title
@@ -24,51 +15,18 @@ const Home = () => {
 				}
 			/>
 			<MainFeaturedPost />
-			<Grid
-				container
-				direction="column"
-				justify="center"
-				spacing={5}
-			>
-				{oidcUser ? (
+			{oidcUser ? (
+				<Grid
+					container
+					direction="column"
+					justify="center"
+					spacing={5}
+				>
 					<Grid item>
-						<Card>
-							<CardHeader title="Vos droits: " />
-							<Divider />
-							<CardContent>
-								<List>
-									{roles.map(
-										(role: string) => {
-											return (
-												<ListItem
-													key={
-														role
-													}
-												>
-													<ListItemText
-														key={
-															role +
-															'text'
-														}
-														inset={
-															true
-														}
-													>
-														-
-														{
-															role
-														}
-													</ListItemText>
-												</ListItem>
-											);
-										},
-									)}
-								</List>
-							</CardContent>
-						</Card>
+						<CardRights />
 					</Grid>
-				) : null}
-			</Grid>
+				</Grid>
+			) : null}
 		</>
 	);
 };

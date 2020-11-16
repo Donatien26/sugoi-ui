@@ -3,10 +3,16 @@ export const isReader = (
 	tokenParsed: any | undefined,
 ) => {
 	const regex = new RegExp(readerRegexName);
-	let t = tokenParsed?.realm_access?.roles.filter((role: string) =>
-		role.match(regex),
-	).length;
-	return t ? t > 0 : false;
+	let readerDomain = tokenParsed?.realm_access?.roles
+		.filter((role: string) => role.match(regex))
+		.map((role: string) => {
+			const found = role.match(regex);
+			return found ? found[1] : null;
+		});
+	return [
+		readerDomain.length ? readerDomain.length > 0 : false,
+		readerDomain,
+	];
 };
 
 export const isAdministrator = (
@@ -24,10 +30,13 @@ export const isWriter = (
 	tokenParsed: any | undefined,
 ) => {
 	const regex = new RegExp(writerRegexName);
-	let t = tokenParsed?.realm_access?.roles.filter((role: string) =>
-		role.match(regex),
-	).length;
-	return t ? t > 0 : false;
+	const writeDomain = tokenParsed?.realm_access?.roles
+		.filter((role: string) => role.match(regex))
+		.map((role: string) => {
+			const found = role.match(regex);
+			return found ? found[1] : null;
+		});
+	return [writeDomain.length ? writeDomain.length > 0 : false, writeDomain];
 };
 
 export const getRoles = (tokenParsed: any | undefined) => {
