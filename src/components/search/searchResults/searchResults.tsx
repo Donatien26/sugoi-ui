@@ -3,6 +3,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 interface props {
 	datasource: any;
+	realmName: string;
 }
 
 const columns = [
@@ -20,8 +21,7 @@ const columns = [
 	},
 ];
 
-export const SearchResults = (props: props) => {
-	const { datasource } = props;
+export const SearchResults = ({ datasource, realmName }: props) => {
 	const { push } = useHistory();
 	return (
 		<MaterialTable
@@ -33,7 +33,12 @@ export const SearchResults = (props: props) => {
 					icon: 'visibility',
 					tooltip: 'View user',
 					onClick: (event, rowData: any) => {
-						push('/detail/' + rowData.username);
+						push(
+							'/realm/' +
+								realmName +
+								'/detail/user/' +
+								rowData.username,
+						);
 					},
 				},
 			]}

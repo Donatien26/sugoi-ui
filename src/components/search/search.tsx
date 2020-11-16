@@ -13,14 +13,14 @@ interface formValues {
 
 const Search = () => {
 	const { enqueueSnackbar } = useSnackbar();
-	const { realm } = useParams<any>();
+	const { realmName } = useParams<any>();
 	const [values, setValues] = useState<formValues | null>(null);
 	const [users, setUsers] = useState<any[]>([]);
 	const [, setLoading] = useState(false);
 	useEffect(() => {
 		if (values) {
 			setLoading(true);
-			getUsers(realm)
+			getUsers(realmName)
 				.then((r) => {
 					setUsers(r);
 					setLoading(false);
@@ -29,15 +29,15 @@ const Search = () => {
 					setLoading(false);
 					enqueueSnackbar('Api indisponible', {
 						variant: 'error',
-						persist: true,
+						persist: false,
 					});
 				});
 		}
-	}, [values, realm, enqueueSnackbar]);
+	}, [values, realmName, enqueueSnackbar]);
 
 	return (
 		<>
-			<Title title={'Rechercher dans le realm ' + realm} />
+			<Title title={'Rechercher dans le realm ' + realmName} />
 			<Grid
 				container
 				direction="column"
@@ -49,7 +49,10 @@ const Search = () => {
 					<SearchForm setValues={setValues} />
 				</Grid>
 				<Grid item xs={12}>
-					<SearchResults datasource={users} />
+					<SearchResults
+						datasource={users}
+						realmName={realmName}
+					/>
 				</Grid>
 			</Grid>
 		</>
