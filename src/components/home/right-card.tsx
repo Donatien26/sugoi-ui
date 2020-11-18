@@ -13,14 +13,14 @@ import { useSelector } from 'react-redux';
 import D from './../../i18n';
 
 const CardRights = () => {
-	const roles = useSelector((state: RootState) => state.role);
+	const user = useSelector((state: RootState) => state.user);
 	return (
 		<Card>
 			<CardHeader title={D.right_card_title} />
 			<Divider />
 			<CardContent>
 				<List>
-					{roles.isAdmin ? (
+					{user.role.isAdmin ? (
 						<ListItem key="role-admin">
 							<ListItemText
 								key="role-admin-text"
@@ -30,8 +30,8 @@ const CardRights = () => {
 							</ListItemText>
 						</ListItem>
 					) : null}
-					{roles.isReader
-						? roles.readerDomains.map(
+					{user.role.isReader
+						? user.role.readerDomains.map(
 								(role: string) => (
 									<ListItem
 										key={
@@ -53,9 +53,9 @@ const CardRights = () => {
 								),
 						  )
 						: null}
-					{!roles.isAdmin &&
-					!roles.isWriter &&
-					!roles.isReader ? (
+					{!user.role.isAdmin ||
+					!user.role.isReader ||
+					!user.role.isWriter ? (
 						<ListItem key={'no-rights'}>
 							<ListItemText
 								key={'no-rights-text'}

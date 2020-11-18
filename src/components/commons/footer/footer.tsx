@@ -1,3 +1,4 @@
+import React from 'react';
 import {
 	Box,
 	createStyles,
@@ -7,7 +8,6 @@ import {
 	Typography,
 	Grid,
 } from '@material-ui/core';
-import React from 'react';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import { useConfig } from '../../../configuration/utils';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';

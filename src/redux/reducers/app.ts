@@ -1,19 +1,14 @@
 const initialConfigState = {
 	theme: window.localStorage.getItem('darkMode') ? 'dark' : 'light',
-	config: {
-		api: '',
-		adminName: '',
-		writerRegexName: '',
-		readerRegexName: '',
-	},
+	config: {},
 	realms: [],
 };
 
 const AppReducer = (state = initialConfigState, action: any) => {
 	let nextState;
 	switch (action.type) {
-		case 'appConfig':
-			nextState = { ...state, ...action };
+		case 'saveConfig':
+			nextState = { ...state, config: { ...action.payload } };
 			return nextState;
 		case 'changeTheme':
 			nextState = {
@@ -28,11 +23,6 @@ const AppReducer = (state = initialConfigState, action: any) => {
 			};
 			return nextState;
 		}
-		case 'appConfig/fetchConfig/fulfilled':
-			return {
-				...state,
-				config: action.payload,
-			};
 		default:
 			return state;
 	}

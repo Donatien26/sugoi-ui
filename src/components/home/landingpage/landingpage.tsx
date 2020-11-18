@@ -1,9 +1,9 @@
+import React from 'react';
 import { Button } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import React from 'react';
 import { useHistory } from 'react-router-dom';
 import D from '../../../i18n';
 import { useReactOidc } from '@axa-fr/react-oidc-context';

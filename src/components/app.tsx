@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { Container } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
@@ -7,7 +8,6 @@ import {
 	MuiThemeProvider,
 	Theme,
 } from '@material-ui/core/styles';
-import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from './../configuration/store-configuration';
 import { DarkTheme, LightTheme } from './../material-ui-theme';

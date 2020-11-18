@@ -1,5 +1,5 @@
-import { FormControlLabel, Switch } from '@material-ui/core';
 import React, { useState } from 'react';
+import { FormControlLabel, Switch } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { useLocalStorage } from '../../../configuration/utils';
 import { changeTheme } from '../../../redux/actions/app';

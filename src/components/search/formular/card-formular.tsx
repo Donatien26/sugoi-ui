@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import {
 	Button,
 	Card,
@@ -9,7 +10,6 @@ import {
 	Grid,
 	TextField,
 } from '@material-ui/core';
-import React, { useState } from 'react';
 import D from '../../../i18n';
 import ExpandButton from './expand-button';
 import Selector from './selector';

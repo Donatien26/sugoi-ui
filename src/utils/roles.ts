@@ -1,9 +1,6 @@
-export const isReader = (
-	readerRegexName: string,
-	tokenParsed: any | undefined,
-) => {
+export const isReader = (roles: string[], readerRegexName: string) => {
 	const regex = new RegExp(readerRegexName);
-	let readerDomain = tokenParsed?.realm_access?.roles
+	let readerDomain = roles
 		.filter((role: string) => role.match(regex))
 		.map((role: string) => {
 			const found = role.match(regex);
@@ -15,22 +12,14 @@ export const isReader = (
 	];
 };
 
-export const isAdministrator = (
-	adminName: string,
-	tokenParsed: any | undefined,
-) => {
-	let t = tokenParsed?.realm_access?.roles.filter((role: string) =>
-		role.includes(adminName),
-	).length;
+export const isAdministrator = (roles: string[], adminName: string) => {
+	let t = roles.filter((role: string) => role.includes(adminName)).length;
 	return t ? t > 0 : false;
 };
 
-export const isWriter = (
-	writerRegexName: string,
-	tokenParsed: any | undefined,
-) => {
+export const isWriter = (roles: string[], writerRegexName: string) => {
 	const regex = new RegExp(writerRegexName);
-	const writeDomain = tokenParsed?.realm_access?.roles
+	const writeDomain = roles
 		.filter((role: string) => role.match(regex))
 		.map((role: string) => {
 			const found = role.match(regex);

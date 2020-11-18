@@ -1,6 +1,6 @@
+import React from 'react';
 import { Box, CircularProgress, Theme, Typography } from '@material-ui/core';
 import { createStyles, makeStyles } from '@material-ui/styles';
-import React from 'react';
 import D from '../../../i18n';
 
 const useStyles = makeStyles((theme: Theme) =>
