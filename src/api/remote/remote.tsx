@@ -14,6 +14,6 @@ export const getRemoteUsers = (domain: string) =>
 	);
 
 export const getRemoteUser = (id: string, domain: string) =>
-	getClient().then((client: AxiosInstance) =>
+	getAuthClient().then((client: AxiosInstance) =>
 		client.get('/' + domain + '/user/' + id).then((r: any) => r.data),
 	);

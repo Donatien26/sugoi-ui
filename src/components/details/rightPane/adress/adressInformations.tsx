@@ -1,13 +1,12 @@
 import { Grid } from '@material-ui/core';
 import React from 'react';
-import TextFieldInfo from '../../commons/textfieldInfo/textFieldInfo';
+import TextFieldInfo from '../../../commons/textfieldInfo/textFieldInfo';
 import { toDisplay } from './fieldToDisplay';
 
 interface props {
 	user: any;
 }
-
-const BasicInformations = ({ user }: props) => {
+const AddressInformations = ({ user }: props) => {
 	return (
 		<Grid
 			container
@@ -20,10 +19,13 @@ const BasicInformations = ({ user }: props) => {
 				<Grid item xs={12}>
 					<TextFieldInfo
 						name={field.name}
-						value={user[field.value]}
-						disabled={true}
+						object={user}
+						disabled={field.modifiable ? true : false}
 						helpText={field.helpText}
 						helpTextTitle={field.helpTextTitle}
+						getFunction={field.getFunction}
+						setFunction={field.setFunction}
+						varName={field.varName}
 					/>
 				</Grid>
 			))}
@@ -31,4 +33,4 @@ const BasicInformations = ({ user }: props) => {
 	);
 };
 
-export default BasicInformations;
+export default AddressInformations;

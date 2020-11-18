@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -6,9 +6,14 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { Checkbox, Divider, FormControlLabel } from '@material-ui/core';
 
 export default function FormDialog() {
 	const [open, setOpen] = React.useState(false);
+	const [includeApplicationName, setIncludeApplicationName] = useState(
+		false,
+	);
+	const [includeMail, setIncludeMail] = useState(false);
 
 	const handleClickOpen = () => {
 		setOpen(true);
@@ -33,21 +38,57 @@ export default function FormDialog() {
 				aria-labelledby="form-dialog-title"
 			>
 				<DialogTitle id="form-dialog-title">
-					Subscribe
+					Envoyer le login à G493QP
 				</DialogTitle>
 				<DialogContent>
 					<DialogContentText>
-						To subscribe to this website, please enter
-						your email address here. We will send
-						updates occasionally.
+						Vous pouvez personnaliser le mail d'envoi du
+						login.
+					</DialogContentText>
+					<FormControlLabel
+						control={
+							<Checkbox
+								checked={includeApplicationName}
+								onChange={() =>
+									setIncludeApplicationName(
+										!includeApplicationName,
+									)
+								}
+								name="checkedA"
+							/>
+						}
+						label=" Inclure le nom de l'application"
+					/>
+					<FormControlLabel
+						control={
+							<Checkbox
+								checked={includeMail}
+								onChange={() =>
+									setIncludeMail(
+										!includeMail,
+									)
+								}
+								name="checkedB"
+							/>
+						}
+						label="Inclure un mail d'assistance"
+					/>
+					<Divider />
+					<DialogContentText>Bonjour,</DialogContentText>
+					<DialogContentText>
+						Suite à votre demande, voici votre
+						identifiant :G493QP
+					</DialogContentText>
+					<DialogContentText>
+						Cordialement,
 					</DialogContentText>
 					<TextField
-						autoFocus
 						margin="dense"
 						id="name"
-						label="Email Address"
+						label="signature"
 						type="email"
 						fullWidth
+						value="assistance insee"
 					/>
 				</DialogContent>
 				<DialogActions>

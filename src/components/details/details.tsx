@@ -6,7 +6,7 @@ import { getUserByIdAndDomain } from '../../api/api';
 import Title from '../commons/title/title';
 import LeftPane from './leftPane/leftPane';
 import RightPane from './rightPane/rightPane';
-import SendLoginModal from './sendLoginModal';
+import SendLoginModal from './commons/sendLogin/sendLoginModal';
 
 export const Details = () => {
 	const { realmName, id } = useParams<any>();
@@ -15,7 +15,7 @@ export const Details = () => {
 
 	useEffect(() => {
 		getUserByIdAndDomain(id, realmName)
-			.then((r) => setUser(r))
+			.then((r: any) => setUser(r))
 			.catch((err) =>
 				enqueueSnackbar("Erreur lors de la requête à l'api", {
 					variant: 'error',
@@ -57,6 +57,9 @@ export const Details = () => {
 								<Button
 									variant="contained"
 									color="primary"
+									onClick={() =>
+										console.log(user)
+									}
 								>
 									Enregistrer les
 									modifications

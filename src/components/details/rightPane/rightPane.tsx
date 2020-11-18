@@ -1,9 +1,9 @@
 import { Grid } from '@material-ui/core';
 import React from 'react';
 import { MyPaper } from '../commons/myPaper';
-import AddressInformations from './adressInformations';
-import AdvancedInformations from './advancedInformations';
-import RightInformations from './rightInformations';
+import AddressInformations from './adress/adressInformations';
+import AdvancedInformations from './advanced/advancedInformations';
+import RightInformations from './rights/rightInformations';
 interface props {
 	user: any;
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { MyPaper } from '../commons/myPaper';
-import BasicInformations from './basicInformation';
+import BasicInformations from './basic/basicInformation';
 interface props {
 	user: any;
 }

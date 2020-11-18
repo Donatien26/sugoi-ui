@@ -13,10 +13,13 @@ import InfoIcon from '@material-ui/icons/Info';
 
 interface props {
 	name: string;
-	value: string | null;
-	helpTextTitle?: string;
+	object: any;
+	helpTextTitle: string;
 	helpText?: string;
 	disabled?: boolean;
+	getFunction?: any;
+	setFunction?: any;
+	varName?: string;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -35,10 +38,13 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 const TextFieldInfo = ({
 	name,
-	value,
+	object,
 	disabled,
 	helpTextTitle,
 	helpText,
+	getFunction,
+	setFunction,
+	varName,
 }: props) => {
 	const classes = useStyles();
 	const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
@@ -56,11 +62,17 @@ const TextFieldInfo = ({
 
 	return (
 		<div className={classes.root}>
-			<Typography component="div" variant="body1" align="left">
-				<Box fontWeight="fontWeightBold" m={1}>
-					{name}
-				</Box>
-			</Typography>
+			<TextField
+				variant="outlined"
+				label={name}
+				name={name}
+				disabled={!disabled}
+				defaultValue={getFunction(object, varName)}
+				fullWidth
+				onChange={(e) =>
+					setFunction(object, varName, e.target.value)
+				}
+			/>
 			<IconButton
 				aria-label="info"
 				className={classes.margin}
@@ -70,15 +82,6 @@ const TextFieldInfo = ({
 			>
 				<InfoIcon fontSize="inherit" />
 			</IconButton>
-			<div style={{ flexGrow: 5 }} />
-			<TextField
-				variant="outlined"
-				label={name}
-				name={name}
-				disabled={disabled}
-				value={value}
-				fullWidth
-			/>
 			<Popover
 				id="popover-help"
 				open={open}
