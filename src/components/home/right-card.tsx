@@ -53,8 +53,8 @@ const CardRights = () => {
 								),
 						  )
 						: null}
-					{!user.role.isAdmin ||
-					!user.role.isReader ||
+					{!user.role.isAdmin &&
+					!user.role.isReader &&
 					!user.role.isWriter ? (
 						<ListItem key={'no-rights'}>
 							<ListItemText
