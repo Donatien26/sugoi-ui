@@ -1,0 +1,75 @@
+name: Release sugoi-ui
+
+on:
+  push:
+    branches:
+      - '**'
+    tags:
+      - '*'
+  pull_request:
+    branches:
+      - main
+   
+
+jobs:
+  releases:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - id: get_version
+        run: echo ::set-output name=VERSION::$(echo 3.2.5)
+      - run: git config user.email "ts-ci@github.com" && git config user.name "ts-ci@github.com"
+      - name: Use Node.js 14
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - name: Set new version
+        run: npm version ${{ steps.get_version.outputs.VERSION }}
+      - uses: papeloto/action-zip@v1
+        with:
+          files: ./
+          dest: sugoi-ui-${{ steps.get_version.outputs.VERSION }}-sources.zip 
+      - name: install dependencies 
+        run: yarn
+      - run: yarn build
+        name: create build
+      - uses: papeloto/action-zip@v1
+        with:
+          files: build/
+          dest: sugoi-ui-${{ steps.get_version.outputs.VERSION }}-build.zip
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ./${{ matrix.artifact_name }}
+          asset_name: ${{ matrix.asset_name }}
+          tag: ${{ github.ref }}
+          overwrite: true
+      - name: Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.get_version.outputs.VERSION }}
+          release_name: v${{ steps.get_version.outputs.VERSION }}
+          draft: false
+          prerelease: false
+      - name: Upload sources
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: sugoi-ui-${{ steps.get_version.outputs.VERSION }}-sources.zip
+          asset_name: sugoi-ui-${{ steps.get_version.outputs.VERSION }}-sources.zip
+          asset_content_type: zip
+      - name: Upload build app
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: sugoi-ui-${{ steps.get_version.outputs.VERSION }}-build.zip
+          asset_name: sugoi-ui-${{ steps.get_version.outputs.VERSION }}-build.zip
+          asset_content_type: zip
