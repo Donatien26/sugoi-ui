@@ -2,8 +2,14 @@ name: Release sugoi-ui
 
 on:
   push:
+    branches:
+      - '**'
     tags:
       - '*'
+  pull_request:
+    branches:
+      - main
+   
 
 jobs:
   releases:
@@ -11,13 +17,20 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - id: get_version
-        run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
+        run: echo ::set-output name=VERSION::$(echo 3.2.5)
+      - run: git config user.email "ts-ci@github.com" && git config user.name "ts-ci@github.com"
       - name: Use Node.js 14
         uses: actions/setup-node@v1
         with:
           node-version: 14
       - name: Set new version
-        run: npm version ${{ steps.get_version.outputs.VERSION }} --no-git-tag-version
+        run: npm version ${{ steps.get_version.outputs.VERSION }}
+      - uses: EndBug/add-and-commit@v7 # You can change this to use a specific version
+        with:
+          author_name: ts-ci@github.com
+          author_email: ts-ci@github.com
+          message: 'prepare next version'
+
       - uses: papeloto/action-zip@v1
         with:
           files: ./
@@ -66,3 +79,23 @@ jobs:
           asset_path: sugoi-ui-${{ steps.get_version.outputs.VERSION }}-build.zip
           asset_name: sugoi-ui-${{ steps.get_version.outputs.VERSION }}-build.zip
           asset_content_type: zip
+
+
+  prepare_next_version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - id: get_version
+        run: echo ::set-output name=VERSION::$(echo 3.2.5)
+      - run: git config user.email "ts-ci@github.com" && git config user.name "ts-ci@github.com"
+      - name: Use Node.js 14
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - name: Set new version
+        run: npm version ${{ steps.get_version.outputs.VERSION }}
+      - uses: EndBug/add-and-commit@v7 # You can change this to use a specific version
+        with:
+          author_name: ts-ci@github.com
+          author_email: ts-ci@github.com
+          message: 'prepare next version'
