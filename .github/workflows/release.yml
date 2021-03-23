@@ -17,20 +17,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - id: get_version
-        run: echo ::set-output name=VERSION::$(echo 3.2.5)
-      - run: git config user.email "ts-ci@github.com" && git config user.name "ts-ci@github.com"
+        run: echo ::set-output name=VERSION::$(node -p "require('./package.json').version")
       - name: Use Node.js 14
         uses: actions/setup-node@v1
         with:
           node-version: 14
-      - name: Set new version
-        run: npm version ${{ steps.get_version.outputs.VERSION }}
-      - uses: EndBug/add-and-commit@v7 # You can change this to use a specific version
-        with:
-          author_name: ts-ci@github.com
-          author_email: ts-ci@github.com
-          message: 'prepare next version'
-
       - uses: papeloto/action-zip@v1
         with:
           files: ./
@@ -43,14 +34,6 @@ jobs:
         with:
           files: build/
           dest: sugoi-ui-${{ steps.get_version.outputs.VERSION }}-build.zip
-      - name: Upload binaries to release
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./${{ matrix.artifact_name }}
-          asset_name: ${{ matrix.asset_name }}
-          tag: ${{ github.ref }}
-          overwrite: true
       - name: Release
         id: create_release
         uses: actions/create-release@v1
@@ -85,17 +68,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - id: get_version
-        run: echo ::set-output name=VERSION::$(echo 3.2.5)
-      - run: git config user.email "ts-ci@github.com" && git config user.name "ts-ci@github.com"
       - name: Use Node.js 14
         uses: actions/setup-node@v1
         with:
           node-version: 14
-      - name: Set new version
-        run: npm version ${{ steps.get_version.outputs.VERSION }}
-      - uses: EndBug/add-and-commit@v7 # You can change this to use a specific version
-        with:
-          author_name: ts-ci@github.com
-          author_email: ts-ci@github.com
-          message: 'prepare next version'
+      - run: git config user.email "ts-ci@github.com" && git config user.name "ts-ci@github.com"
+      - name: Set next version
+        run: npm version --no-git-tag-version major 
+      - run: git add . && git commit -m "prepare next version" && git push
