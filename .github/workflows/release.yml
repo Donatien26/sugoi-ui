@@ -41,7 +41,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: ${{github.repository}}
-          ref: prepare-version-${{ github.event.inputs.version }}
+          ref: release-${{ github.event.inputs.version }}
 
       - name: Use Node.js 14
         uses: actions/setup-node@v1
