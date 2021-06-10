@@ -72,7 +72,7 @@ jobs:
       - name: Upload Zip Release 
         run: |
           echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
-          gh release upload --repo ${{ github.repository }} "${{ needs.build.outputs.version }}" \
+          gh release upload --repo ${{ github.repository }} "${{ github.event.inputs.version }}" \
           ./sugoi-ui-${{ github.event.inputs.version }}-distribution.zip
 
   after-release:
