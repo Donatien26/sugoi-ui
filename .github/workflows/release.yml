@@ -60,27 +60,20 @@ jobs:
           files: build/
           dest: sugoi-ui-${{ github.event.inputs.version }}-distribution.zip
 
-      - name: Create release
+      - name: Create a release
         id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.event.inputs.version }}
-          release_name: ${{ github.event.inputs.version }}
-          draft: false
-          prerelease: false
+        run: |
+          echo ::set-output name=upload_url::$(curl --request POST \
+          --header "Accept: application/vnd.github.v3+json" \
+          --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+          --url https://api.github.com/repos/${{ github.repository }}/releases \
+          -d '{"tag_name":"${{ github.event.inputs.version }}"}' | jq '.upload_url' | cut -d { -f 1)
 
-      - name: Add zip to release
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: sugoi-ui-${{ github.event.inputs.version }}-distribution.zip
-          asset_name: sugoi-ui-${{ github.event.inputs.version }}-distribution.zip
-          asset_content_type: zip
-
+      - name: Upload Zip Release 
+        run: |
+          echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
+          gh release upload --repo ${{ github.repository }} "${{ needs.build.outputs.version }}" \
+          sugoi-ui-${{ github.event.inputs.version }}-distribution.zip
 
   after-release:
     name: after-release
