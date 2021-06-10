@@ -1,6 +1,6 @@
 {
 	"name": "sugoi-js",
-	"version": "10.25.369",
+	"version": "10.26.0",
 	"license": "Apache License",
 	"private": true,
 	"dependencies": {
